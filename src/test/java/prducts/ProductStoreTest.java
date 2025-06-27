@@ -1,6 +1,5 @@
 package prducts;
 
-import com.rmalvadkar.sck.AddProductRequest;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -48,7 +47,5 @@ public class ProductStoreTest {
         Assertions.assertThat(items.get(newProduct.productCode()).quantity()).isEqualTo(2);
         ;
     }
-
-
 
 }

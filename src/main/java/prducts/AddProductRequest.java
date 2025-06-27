@@ -1,4 +1,4 @@
-package com.rmalvadkar.sck;
+package prducts;
 
 import java.math.BigDecimal;
 
