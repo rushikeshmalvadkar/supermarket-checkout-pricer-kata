@@ -33,15 +33,13 @@ public class ProductStoreTest {
 
     @Test
     void should_add_product_in_product_store() {
-        ProductInput newProduct = ProductInput.of("maggi", "M001", new BigDecimal("10"));
-        ProductStore.add(newProduct);
-        ProductStore.add(newProduct);
-
-        //TODO: Get list but not map
+        ProductInput firstProduct = ProductInput.of("maggi", "M001", new BigDecimal("10"));
+        ProductInput secondProduct = ProductInput.of("parle", "M002", new BigDecimal("10"));
+        ProductStore.add(firstProduct);
+        ProductStore.add(secondProduct);
         Collection<Product> productList = ProductStore.getProductCodeToProductMap();
-        Assertions.assertThat(productList.size()).isEqualTo(1);
-        Assertions.assertThat(productList.stream().findFirst().get().quantity()).isEqualTo(2);
-        ;
+        Assertions.assertThat(productList.size()).isEqualTo(2);
+        Assertions.assertThat(productList.stream().findFirst().get().quantity()).isEqualTo(1);
     }
 
 }
