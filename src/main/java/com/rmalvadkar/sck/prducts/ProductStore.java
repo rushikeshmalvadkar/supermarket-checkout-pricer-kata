@@ -1,4 +1,4 @@
-package prducts;
+package com.rmalvadkar.sck.prducts;
 
 import java.util.Collection;
 import java.util.HashMap;
