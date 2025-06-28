@@ -10,27 +10,36 @@ import java.util.Map;
 
 public class Cart {
 
-    private final Map<String,PrductItem> productCodeTOProductItem = new HashMap<>();
+    private final Map<String, ProductItem> productCodeTOProductItem = new HashMap<>();
 
-    public Collection<PrductItem> items() {
+    public Collection<ProductItem> items() {
         return productCodeTOProductItem.values();
     }
 
     public void scan(String productCode) {
         Product product = ProductStore.findProductBy(productCode);
-        if(productCodeTOProductItem.containsKey(productCode)){
-            PrductItem prductItem = productCodeTOProductItem.get(productCode);
-          productCodeTOProductItem.put(productCode,new PrductItem(prductItem.productCode(), prductItem.productPrice().add(product.price()) ,prductItem.Quantity() + 1));
-          return;
+        if(productExitBy(productCode)){
+            updateAlreadyExitProduct(productCode, product);
+            return;
         }
 
-        productCodeTOProductItem.put(productCode, new PrductItem(productCode, product.price(),1));
+        productCodeTOProductItem.put(productCode, new ProductItem(productCode, product.price(),1));
+    }
+
+    private boolean productExitBy(String productCode) {
+        return productCodeTOProductItem.containsKey(productCode);
+    }
+
+    private void updateAlreadyExitProduct(String productCode, Product product) {
+        ProductItem productItem = productCodeTOProductItem.get(productCode);
+        productCodeTOProductItem.put(productCode,productItem.incrementQuantity());
+        return;
     }
 
     public BigDecimal totalPrice() {
       return productCodeTOProductItem.values()
                .stream()
-               .map(PrductItem::productPrice)
+               .map(ProductItem::priceWithQuality)
                .reduce(BigDecimal.ZERO,BigDecimal::add);
     }
 }
